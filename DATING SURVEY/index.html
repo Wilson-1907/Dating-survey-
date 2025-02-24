@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>❤️ Relationship Survey</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>📋 Relationship Survey</h1>
+        <p>Your responses are confidential. Be honest! 😊</p>
+
+        <form id="surveyForm">
+            <label>👤 Gender:</label>
+            <select id="gender" required>
+                <option value="" disabled selected>🔽 Select</option>
+                <option value="Male">🙋‍♂️ Male</option>
+                <option value="Female">🙋‍♀️ Female</option>
+                <option value="Other">🌈 Other</option>
+            </select>
+
+            <label>🎓 Your Course:</label>
+            <input type="text" id="course" placeholder="✏️ Enter your course" required>
+
+            <label>❤️ Are you dating?</label>
+            <select id="datingStatus" required>
+                <option value="" disabled selected>🔽 Select</option>
+                <option value="Yes">✅ Yes</option>
+                <option value="No">❌ No</option>
+            </select>
+
+            <div id="datingQuestions" style="display: none;">
+                <label>🔎 Sexual Orientation:</label>
+                <select id="orientation" required>
+                    <option value="" disabled selected>🔽 Select</option>
+                    <option value="Straight">📏 Straight</option>
+                    <option value="Gay">🌈 Gay</option>
+                    <option value="Lesbian">🌸 Lesbian</option>
+                    <option value="Bisexual">💙💜💖 Bisexual</option>
+                </select>
+
+                <label>💯 Are you loyal?</label>
+                <select id="loyalty" required>
+                    <option value="" disabled selected>🔽 Select</option>
+                    <option value="Yes">👍 Yes</option>
+                    <option value="No">👎 No</option>
+                </select>
+
+                <label>⏳ How long have you been dating?</label>
+                <input type="text" id="relationshipDuration" placeholder="⌛ e.g., 6 months, 2 years">
+
+                <label>🎓 Partner's Course:</label>
+                <input type="text" id="partnerCourse" placeholder="📖 Enter partner's course" required>
+
+                <label>🚪 Planning to leave your partner soon?</label>
+                <input type="text" id="leavePartner" placeholder="📝 Yes/No and why">
+
+                <label>📝 Anything extra to say?</label>
+                <textarea id="extraDating" placeholder="💬 Your thoughts..."></textarea>
+            </div>
+
+            <div id="singleQuestions" style="display: none;">
+                <label>💔 Why are you single?</label>
+                <input type="text" id="singleReason" placeholder="😅 Enter reason">
+
+                <label>🔙 Have you been in a past relationship?</label>
+                <select id="pastRelationship" required>
+                    <option value="" disabled selected>🔽 Select</option>
+                    <option value="Yes">✅ Yes</option>
+                    <option value="No">❌ No</option>
+                </select>
+
+                <div id="pastDetails" style="display: none;">
+                    <label>⌛ How long did it last?</label>
+                    <input type="text" id="pastDuration" placeholder="📅 e.g., 1 year, 3 months">
+
+                    <label>🛑 Why did it end?</label>
+                    <input type="text" id="pastReason" placeholder="📜 Enter reason">
+                </div>
+
+                <label>📝 Anything extra to say?</label>
+                <textarea id="extraSingle" placeholder="💬 Your thoughts..."></textarea>
+            </div>
+
+            <button type="submit">🚀 Submit</button>
+        </form>
+
+        <div id="alreadySubmitted" style="display: none;">
+            <h2>🎉 Thank you for submitting! You have already participated.</h2>
+        </div>
+        
+        <!-- Optional Reset Button -->
+        <button id="resetSurvey">🔄 Reset Survey</button>
+        
+
+        <h2>📊 Survey Results</h2>
+        <canvas id="surveyChart"></canvas>
+        <p id="conclusion">📢 Data will be analyzed once responses are submitted.</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
