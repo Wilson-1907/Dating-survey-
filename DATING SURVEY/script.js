@@ -1,40 +1,53 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Check if user has already submitted
+    showStep(1);
+
+    // Prevent users from re-answering
     if (localStorage.getItem("surveySubmitted")) {
-        alert("🚫 You have already submitted the survey! Thank you. 😊");
-        document.getElementById("surveyForm").style.display = "none"; // Hide form
-        document.getElementById("alreadySubmitted").style.display = "block"; // Show message
+        document.getElementById("surveyForm").innerHTML = "<h2>🎉 You have already answered! Try again tomorrow.</h2>";
     }
-
-    // Auto-reset survey after 24 hours
-    if (localStorage.getItem("surveyTime")) {
-        let timePassed = Date.now() - localStorage.getItem("surveyTime");
-        if (timePassed > 24 * 60 * 60 * 1000) { // 24 hours
-            localStorage.removeItem("surveySubmitted");
-            localStorage.removeItem("surveyTime");
-        }
-    }
-
-    // Handle form submission
-    document.getElementById("surveyForm").addEventListener("submit", function (event) {
-        event.preventDefault(); // Prevent page reload
-
-        // Store submission
-        localStorage.setItem("surveySubmitted", "true");
-        localStorage.setItem("surveyTime", Date.now());
-
-        alert("✅ Thank you for submitting the survey! 🎉 Your response has been recorded.");
-
-        // Hide form after submission
-        document.getElementById("surveyForm").style.display = "none";
-        document.getElementById("alreadySubmitted").style.display = "block";
-    });
-
-    // Optional: Reset Survey Button (If you want users to retake)
-    document.getElementById("resetSurvey").addEventListener("click", function () {
-        localStorage.removeItem("surveySubmitted");
-        localStorage.removeItem("surveyTime");
-        alert("🔄 Survey reset! You can now submit again.");
-        location.reload();
-    });
 });
+
+function showStep(step) {
+    document.querySelectorAll(".step").forEach((el) => (el.style.display = "none"));
+    document.getElementById("step" + step).style.display = "block";
+}
+
+function nextStep(step) {
+    let status = document.getElementById("relationshipStatus").value;
+    if (step === 2) {
+        if (status === "Single") {
+            showStep("2Single");
+        } else {
+            showStep("2Dating");
+        }
+    } else {
+        showStep(step);
+    }
+}
+
+function showResults() {
+    localStorage.setItem("surveySubmitted", "true");
+    document.getElementById("surveyForm").innerHTML = `
+        <h2>📊 Survey Summary</h2>
+        <p>Most people are <strong>single</strong> and chose to stay single because of <strong>trust issues</strong> 😔.</p>
+        <p>For those dating, the biggest reason they stay together is <strong>love & loyalty</strong> 💕.</p>
+        <canvas id="surveyChart"></canvas>
+    `;
+    drawChart();
+}
+
+function drawChart() {
+    let ctx = document.getElementById("surveyChart").getContext("2d");
+    new Chart(ctx, {
+        type: "pie",
+        data: {
+            labels: ["Single", "Dating"],
+            datasets: [
+                {
+                    data: [60, 40], // Example data, adjust accordingly
+                    backgroundColor: ["#ff4d4d", "#36A2EB"],
+                },
+            ],
+        },
+    });
+}
